@@ -1,0 +1,12 @@
+
+.color{
+    background-color: black;
+/* background-color: #e3f2fd; */
+}
+.image{
+    background-image: url("../image/newspapper.jpg");
+    border: 1px solid black;
+}
+.image-child {
+    background-color: orange;
+}
