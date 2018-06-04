@@ -112,4 +112,10 @@ db.Note.create(req.body)
       res.json(err);
     });
 });
+router.post("/removenote/:id", function (req, res) {
+    db.Note.deleteOne({_id:req.params.id})
+        .then(function(dbArticle){
+            res.json(dbArticle);
+    });
+})
 module.exports = router;

@@ -86,3 +86,20 @@ $(document).on("click",".close",function(req,res){
     $(".modal-title").text(""); 
     $(".saved-note").text("");
 })
+$(document).on("click",".remove",function(req,res){
+    var id = $(this).val();
+    $.ajax({
+        method:"POST",
+        url:"/removenote/"+id
+        // data:{
+        //  body:$(".note").val()
+        // }
+    }).then
+    (function (data){
+    
+    $(".save").val("");
+    $(".modal-title").text(""); 
+    $(".saved-note").text("");
+    window.location.reload();
+})
+})

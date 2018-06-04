@@ -12,3 +12,7 @@
     height: 30%;
     width:100%
 }
+.remove{
+    margin-left: 8px;
+    display: inline;
+}
