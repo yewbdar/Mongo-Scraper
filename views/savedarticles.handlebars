@@ -1,0 +1,11 @@
+<div class="container">
+  {{#each data}}
+  <div class="{{{this._id}}} news">
+    <div class="title"><a href="{{this.link}}" class="link">{{this.title}}</a>  
+    <button class="remove-article" value="{{this._id}}"> Remove Article</button>
+    <button class="add-note" value="{{this._id}}"> Add Note</button>
+    </div>
+    <div class="summary">{{this.summry}}</div>
+    </div> </br>
+{{/each}}
+</div>
