@@ -1,11 +1,39 @@
 <div class="container">
-  {{#each data}}
-  <div class="{{{this._id}}} news">
-    <div class="title"><a href="{{this.link}}" class="link">{{this.title}}</a>  
-    <button class="remove-article" value="{{this._id}}"> Remove Article</button>
-    <button class="add-note" value="{{this._id}}"> Add Note</button>
+    {{#each data}}
+    <div class="{{{this._id}}} news">
+        <div class="title">
+            <a href="{{this.link}}" class="link">{{this.title}}</a>
+            <button class="remove-article" value="{{this._id}}"> Remove Article</button>
+            <button class="add-note" value="{{this._id}}"> Add Note</button>
+        </div>
+        <div class="summary">{{this.summry}}</div>
     </div>
-    <div class="summary">{{this.summry}}</div>
-    </div> </br>
-{{/each}}
+    </br>
+    {{/each}}
+    <!-- modal  -->
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" value=""></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h2 id="nameOfFriend"></h2>
+                    <div class="saved-note" placeholder="">no saved note
+                        <button data-dismiss="modal" aria-label="Close" class="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div></br>
+                    <textarea class="note" ></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary save" aria-label="Close" value="">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /modal-->
 </div>
