@@ -43,6 +43,7 @@ $(document).on("click", ".remove-article", function () {
 });
 $(document).on("click", ".add-note", function () {
     var id = $(this).val();
+    console.log(id)
     $.ajax({
         method: "GET",
         url: "/note/" + id
@@ -61,6 +62,10 @@ $(document).on("click", ".add-note", function () {
 $(document).on("click",".save",function(req,res){
    var id=$(this).val();
    console.log(id);
+   if($(".note").val() === ""){
+    $(".modal").modal('hide');    
+     return; 
+   }
    $.ajax({
        method:"POST",
        url:"/addnote/"+id,
@@ -68,7 +73,16 @@ $(document).on("click",".save",function(req,res){
         body:$(".note").val()
        }
    }).then(function (data) {
-    window.location.reload();
-
+   
+    $(".save").val("");
+    $(".modal-title").text(""); 
+    $(".saved-note").text("");
+    $(".note").val("");
+     window.location.reload();
 });
+})
+$(document).on("click",".close",function(req,res){
+    $(".save").val("");
+    $(".modal-title").text(""); 
+    $(".saved-note").text("");
 })

@@ -32,7 +32,7 @@ router.get("/", function (req, res) {
                     }
                     
                 })
-                console.log(results)
+               
             }
             
         });
