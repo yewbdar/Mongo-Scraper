@@ -6,7 +6,7 @@ var request = require("request");
 var db = require("../models");
 
 router.get("/", function (req, res) {
-    var results = [];
+    let results = [];
     var id = 0;
     request("https://www.nytimes.com/", function (error, response, html) {
         var $ = cheerio.load(html);
@@ -28,16 +28,23 @@ router.get("/", function (req, res) {
                             });
                             id++;
                         }
-
+                        
                     }
+                    
                 })
+                console.log(results)
             }
+            
         });
+        // res.json(results)
 
-        // console.log("...",results[0])
-        res.render("index", { data: results })
+        res.render("index", { data: results });
 
+       
     });
+});
+    
+
     router.get("/saved", function (req, res) {
         db.Article.find({}, function (err, response) {
             if (err) {
@@ -50,8 +57,6 @@ router.get("/", function (req, res) {
             }
         })
 
-        console.log("...  am here")
-
     });
     router.post("/addarticles", function (req, res) {
 
@@ -61,8 +66,8 @@ router.get("/", function (req, res) {
             //     //   })
             .then(function (dbArticle) {
                 // If we were able to successfully update an Article, send it back to the client
-                // res.json(dbArticle);
-                 res.redirect('/');
+                 res.json(dbArticle);
+                // res.redirect('/');
             })
         //       .catch(function(err) {
         //         // If an error occurred, send it to the client
@@ -70,6 +75,11 @@ router.get("/", function (req, res) {
         //       });
         
     });
-   
+    router.post("/rmvarticles/:id" , function(req,res){
+        db.Article.deleteOne({_id:req.params.id})
+        .then(function(dbArticle){
+            res.json(dbArticle);
+    });
 });
+
 module.exports = router;
