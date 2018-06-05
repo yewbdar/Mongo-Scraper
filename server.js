@@ -6,19 +6,25 @@ var mongoose = require("mongoose");
 var path = require("path");
 var app = express();
 
-app.use(express.static(path.join(__dirname,'public')));
-// app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
+
 var PORT = process.env.PORT || 3000
-// //bodyparser
+//bodyparser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/newyorknews");
 
-// //handelbars
+// Connect to the Mongo DB
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
+// mongoose.connect("mongodb://localhost/newyorknews");
+
+//handelbars
 app.engine("handlebars", handlbar({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
-// //router
+//router
 app.use('/', routes);
 
 
