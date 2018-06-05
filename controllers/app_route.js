@@ -15,11 +15,11 @@ router.get("/", function (req, res) {
 
 
             if ($(element).children(".story-heading").text() !== "" && $(element).children(".summary").text() !== "" && $(element).children(".story-heading").children().attr("href") !== "") {
-                db.Article.find({ title: $(element).children(".story-heading").text().trim() }, function (err, response) {
-                    if (err) {
-                        throw err;
-                    } else {
-                        if (response.length <= 0) {
+                // db.Article.find({ title: $(element).children(".story-heading").text().trim() }, function (err, response) {
+                    // if (err) {
+                        // throw err;
+                    // } else {
+                        // if (response.length <= 0) {
                             results.push({
                                 id: id,
                                 title: $(element).children(".story-heading").text().trim(),
@@ -27,16 +27,18 @@ router.get("/", function (req, res) {
                                 link: $(element).children(".story-heading").children().attr("href")
                             });
                             id++;
-                        }
+                        // }
 
-                    }
+                    // }
 
-                })
+                // })
 
             }
 
         });
-        res.render("index", { data: results });
+        console.log(" **********loade data****************" , results)
+         res.render("index", { data: results });
+        //res.render("index", {  });
 
     });
 });
@@ -45,7 +47,8 @@ router.get("/saved", function (req, res) {
         if (err) {
             throw err;
         } else {
-            res.render("savedarticles", { data: response })
+             res.render("savedarticles", { data: response })
+            console.log(" ************from db**************" + response)
         }
     })
 
