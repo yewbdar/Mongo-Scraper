@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 // Connect to the Mongo DB
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newyorknews";
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
