@@ -6,8 +6,8 @@ var request = require("request");
 var db = require("../models");
 
 router.get("/", function (req, res) {
-    let results = [];
-    var id = 0;
+    var results = [];
+
     request("https://www.nytimes.com/", function (error, response, html) {
         var $ = cheerio.load(html);
 
@@ -15,39 +15,44 @@ router.get("/", function (req, res) {
 
 
             if ($(element).children(".story-heading").text() !== "" && $(element).children(".summary").text() !== "" && $(element).children(".story-heading").children().attr("href") !== "") {
-                // db.Article.find({ title: $(element).children(".story-heading").text().trim() }, function (err, response) {
-                    // if (err) {
-                        // throw err;
-                    // } else {
-                        // if (response.length <= 0) {
+                db.Article.find({ story_id: $(element).attr("data-story-id") }, function (err, response) {
+                    if (err) {
+                        throw err;
+                    } else {
+                        if (response.length <= 0) {
                             results.push({
-                                id: id,
+                                story_id: $(element).attr("data-story-id"),
                                 title: $(element).children(".story-heading").text().trim(),
                                 summary: $(element).children(".summary").text(),
                                 link: $(element).children(".story-heading").children().attr("href")
                             });
-                            id++;
-                        // }
 
-                    // }
+                        }
 
-                // })
+                    }
+                    // console.log(" **********loade data first ****************", results)
+
+                })
 
             }
-
+            // res.render("index", { data: results });
         });
-        console.log(" **********loade data****************" , results)
-         res.render("index", { data: results });
-        //res.render("index", {  });
+        setTimeout(() => {
+            console.log(" **********loade data second ****************", results)
+            res.render("index", { data: results });
+        }, 100);
 
+        
     });
+
+
 });
 router.get("/saved", function (req, res) {
     db.Article.find({}, function (err, response) {
         if (err) {
             throw err;
         } else {
-             res.render("savedarticles", { data: response })
+            res.render("savedarticles", { data: response })
             console.log(" ************from db**************" + response)
         }
     })

@@ -1,10 +1,11 @@
 $(document).on("click", ".add-article", function () {
     var id = $(this).val();
     var article = {}
+    article.story_id=id;
     article.title = $("." + id).children().children(".link").text();
     article.link = $("." + id).children().children(".link").attr("href");
     article.summry = $("." + id).children(".summary").text();
-
+    console.log("data saved " ,article)
 
     $.ajax({
         method: "POST",
@@ -17,27 +18,32 @@ $(document).on("click", ".add-article", function () {
 
     });
 })
-// var scrape =true
+ var scrape =true
 $(document).on("click", ".scrape", function () {
-    // if(scrape){
+    if(scrape){
    console.log("am in scrape ")
     $.ajax({
         method: "GET",
         url: "/"
     }).then(function (data) {
         console.log(data);
-        window.location.reload();
-       
+        // window.location.reload();
+        scrape=false;
     // }).then(function(){
-    //     scrape=false;
-    });
+        
+     });
    
-// }else{
-//     console.log("whats up  ")
-//     $(".modal").modal('show');
+}else{
+    console.log("whats up  ")
+    $(".modal").modal('show');
   
-// }
+}
 });
+
+
+
+
+
 $(document).on("click", ".remove-article", function () {
     var thisId = $(this).val();
     $.ajax({
